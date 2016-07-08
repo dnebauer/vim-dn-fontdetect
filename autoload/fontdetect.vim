@@ -2,6 +2,10 @@
 
 " Distributed under Vim's |license|; see |fontdetect.txt| for details.
 
+" TODO: add filter for monospace fonts
+
+" TODO: add method for getting x11 fonts using 'xslfonts' 
+
 if exists("autoloaded_fontdetect")
     finish
 endif
