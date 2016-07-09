@@ -2,11 +2,7 @@
 
 " Distributed under Vim's |license|; see |fontdetect.txt| for details.
 
-" TODO: add filter for monospace fonts
-
-" TODO: add method for getting x11 fonts using 'xslfonts' 
-
-if exists("autoloaded_fontdetect")
+if exists('autoloaded_fontdetect')
     finish
 endif
 let autoloaded_fontdetect = 1
@@ -18,8 +14,8 @@ set cpoptions&vim
 " Private functions.
 
 " Query Windows registry to return list of all installed font families.
-function! fontdetect#_listFontFamiliesUsingWindowsRegistry()
-    if !executable("reg")
+function! fontdetect#_listFontFamiliesUsingWindowsRegistry() abort
+    if !executable('reg')
         return []
     endif
     let regOutput = system('reg query "HKLM\SOFTWARE\Microsoft' .
@@ -51,7 +47,7 @@ function! fontdetect#_listFontFamiliesUsingWindowsRegistry()
     return split(regOutput, '\n')
 endfunction
 
-if has("python")
+if has('python')
 " Python function for detecting installed font families using Cocoa.
 python << endpython
 def fontdetect_listFontFamiliesUsingCocoa():
@@ -66,42 +62,42 @@ endpython
 endif
 
 " Use Cocoa font manager to return list of all installed font families.
-function! fontdetect#_listFontFamiliesUsingCocoa()
-    if has("python")
-        return pyeval("fontdetect_listFontFamiliesUsingCocoa()")
+function! fontdetect#_listFontFamiliesUsingCocoa() abort
+    if has('python')
+        return pyeval('fontdetect_listFontFamiliesUsingCocoa()')
     else
         return []
     endif
 endfunction
 
 " Use fontconfig's ``fc-list`` to return list of all installed font families.
-function! fontdetect#_listFontFamiliesUsingFontconfig()
-    if !executable("fc-list")
+function! fontdetect#_listFontFamiliesUsingFontconfig() abort
+    if !executable('fc-list')
         return []
     endif
     let fcOutput = system("fc-list --format '%{family}\n'")
     return split(fcOutput, '\n')
 endfunction
 
-function! fontdetect#_fontDict()
+function! fontdetect#_fontDict() abort
     if exists('g:fontdetect#_cachedFontDict')
         return g:fontdetect#_cachedFontDict
     endif
-    if has("win32")
+    if has('win32')
         let families = fontdetect#_listFontFamiliesUsingWindowsRegistry()
-    elseif has("macunix")
+    elseif has('macunix')
         let families = fontdetect#_listFontFamiliesUsingCocoa()
         if len(families) == 0
             " Try falling back on Fontconfig.
             let families = fontdetect#_listFontFamiliesUsingFontconfig()
         endif
-    elseif executable("fc-list")
+    elseif executable('fc-list')
         let families = fontdetect#_listFontFamiliesUsingFontconfig()
     else
         let families = []
     endif
     if len(families) == 0
-        echomsg "No way to detect fonts"
+        echomsg 'No way to detect fonts'
     endif
     let g:fontdetect#_cachedFontDict = {}
     for fontFamily in families
@@ -112,19 +108,20 @@ endfunction
 
 " Public functions.
 
-function! fontdetect#hasFontFamily(fontFamily)
+function! fontdetect#hasFontFamily(fontFamily) abort
     return has_key(fontdetect#_fontDict(), a:fontFamily)
 endfunction
 
-function! fontdetect#firstFontFamily(fontFamilies)
+function! fontdetect#firstFontFamily(fontFamilies) abort
     for fontFamily in a:fontFamilies
         if fontdetect#hasFontFamily(fontFamily)
             return fontFamily
         endif
     endfor
-    return ""
+    return ''
 endfunction
 
 " Restore saved 'cpoptions'.
 let &cpoptions = s:save_cpoptions
-" vim: sts=4 sw=4 tw=80 et ai:
+
+" vim: tw=75 fdm=indent :
