@@ -66,6 +66,11 @@ fonts.
 A font family should be specified as a string with unescaped spaces, e.g.,
 "DejaVu Sans Mono", "Consolas", etc. Do not replace spaces with underscores.
 
+Font detection is case-specific, so care should be taken specifying font
+names. Note, in particular, that on Linux systems GTK+ 2 GUI font names
+include capital letters while X11 fonts are often in lowercase, so the same
+font may be specified with different case depending on the environment.
+
                                                      *fontdetect#hasFontFamily*
 fontdetect#hasFontFamily(fontFamily)~
 
