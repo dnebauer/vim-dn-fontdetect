@@ -66,9 +66,11 @@ function! s:GetFonts() abort
             let l:families = s:GetFontsUsingFontconfig()
         endif
 
-    " unix (gtk2)                                                      {{{2
-    elseif has('gui_gtk2') && executable('fc-list')
-        let l:families = s:GetFontsUsingFontconfig()
+    " unix (gtk2+)                                                     {{{2
+    elseif has('gui_gtk2') || has('gui_gtk3')
+        if executable('fc-list')
+            let l:families = s:GetFontsUsingFontconfig()
+        endif
 
     " unix (x11)                                                       {{{2
     elseif has('x11') && executable('xlsfonts')
