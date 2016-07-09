@@ -52,7 +52,7 @@ endfunction                                                          " }}}1
 "  params: nil
 "  return: nil
 "  sets:   sets 's:fonts' variable
-function! s:GetFonts()
+function! s:GetFonts() abort
 
     " windows                                                          {{{2
     if has('win32') || has('win64')
@@ -96,7 +96,7 @@ endfunction
 "  intent: get list of installed fonts available on windows
 "  params: nil
 "  return: List of strings
-function! s:GetFontsUsingWindowsRegistry()
+function! s:GetFontsUsingWindowsRegistry() abort
 
     " use reg command                                                  {{{2
     if !executable('reg')
@@ -155,7 +155,7 @@ def fontdetect_listFontFamiliesUsingCocoa():
     return font_families
 endpython
 endif                                                                " }}}2
-function! s:GetFontsUsingPythonCocoa()
+function! s:GetFontsUsingPythonCocoa() abort
     if !has('python') | return [] | endif
     return pyeval('fontdetect_listFontFamiliesUsingCocoa()')
 endfunction
@@ -164,7 +164,7 @@ endfunction
 "  intent: get installed fonts using fontconfig fc-list utility
 "  params: nil
 "  return: List of strings
-function! s:GetFontsUsingFontconfig()
+function! s:GetFontsUsingFontconfig() abort
     if !executable('fc-list') | return [] | endif
     return systemlist("fc-list --format '%{family}\n'")
 endfunction
@@ -173,7 +173,7 @@ endfunction
 "  intent: get registered X server fonts using xlsfonts utility
 "  params: nil
 "  return: List of strings
-function! s:GetFontsUsingXlsfonts()
+function! s:GetFontsUsingXlsfonts() abort
     if !executable('xlsfonts') | return [] | endif
     let l:output = systemlist('xlsfonts')
     " if 14 fields extract font family, else set to ''
