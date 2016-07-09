@@ -176,12 +176,9 @@ endfunction
 function! s:GetFontsUsingXlsfonts() abort
     if !executable('xlsfonts') | return [] | endif
     let l:output = systemlist('xlsfonts')
-    " if 14 fields extract font family, else set to ''
-    call map(l:output, '(len(split(v:val, ''-'')) == 14) '
-                \ . '? (split(v:val, ''-''))[1] : ''''')
-    call uniq(sort(l:output))
-    call filter(l:output, 'strlen(v:val) > 0')  " remove empty elements
-    return l:output
+    call filter(l:output, 'len(split(v:val, ''-'', 1)) == 15')
+    call map(l:output, '(split(v:val, ''-''))[1]')
+    return uniq(sort(l:output))
 endfunction                                                          " }}}1
 
 " SETTINGS:
