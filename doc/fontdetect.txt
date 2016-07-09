@@ -71,6 +71,9 @@ names. Note, in particular, that on Linux systems GTK+ 2 GUI font names
 include capital letters while X11 fonts are often in lowercase, so the same
 font may be specified with different case depending on the environment.
 
+If using X11 fonts, e.g., console vim, use only the font family. Do not use
+an X logical font description (XLFD).
+
                                                      *fontdetect#hasFontFamily*
 fontdetect#hasFontFamily(fontFamily)~
 
