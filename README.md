@@ -18,10 +18,4 @@ At present, the following platforms are supported:
 
 * Mac OS X: using a python interface to the Cocoa API
 
-See documentation in [doc/fontdetect.txt](doc/fontdetect.txt) for installation instructions.
-
-Based on [vim-fontdetect](https://github.com/drmikehenry/vim-fontdetect) by Michael Henry.
-
-Distributed under vim's license.
-
-Git repository: [https://github.com/dnebauer/vim-dn-fontdetect](https://github.com/dnebauer/vim-dn-fontdetect)
+Based on Michael Henry's [vim-fontdetect](https://github.com/drmikehenry/vim-fontdetect) and distributed under vim's license.
