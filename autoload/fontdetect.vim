@@ -194,4 +194,4 @@ endfunction                                                          " }}}1
 " restore saved 'cpoptions'                                            {{{1
 let &cpoptions = s:save_cpoptions                                    " }}}1
 
-" vim: tw=75 fdm=marker :
+" vim:tw=75:fdm=marker:
