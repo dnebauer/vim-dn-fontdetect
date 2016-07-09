@@ -25,7 +25,7 @@ In addition, the GTK+ 2 GUI seems unable to determine whether a given font
 is installed, so |getfontname()| always simply returns the input argument,
 and setting 'guifont' always succeeds even if the font is not present.
 
-|fontdetect| works around these issues, providing methods for detecting which
+fontdetect works around these issues, providing methods for detecting which
 fonts are installed on the system.
 
 At present, the following platforms are supported:
@@ -58,9 +58,13 @@ the downloaded archive into a bundle directory, e.g.: >
 ==============================================================================
 3. Usage                                                *fontdetect-usage*
 
-|fontdetect| provides the following functions. A font family should be
-specified as a string with unescaped spaces (not underscores), e.g.
-"DejaVu Sans Mono", "Consolas", etc.
+fontdetect provides the two functions for detecting fonts.
+|fontdetect#hasFontFamily| checks whether a single font is available and
+|fontdetect#firstFontFamily| locates the first available font in a list of
+fonts.
+
+A font family should be specified as a string with unescaped spaces, e.g.,
+"DejaVu Sans Mono", "Consolas", etc. Do not replace spaces with underscores.
 
                                                      *fontdetect#hasFontFamily*
 fontdetect#hasFontFamily(fontFamily)~
