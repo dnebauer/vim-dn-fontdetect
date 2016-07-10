@@ -145,7 +145,7 @@ endfunction
 "          using Cocoa
 "  params: nil
 "  return: List
-if has('python')                 
+if has('python')
 python << endpython
 def fontdetect_listFontFamiliesUsingCocoa():
     try:
