@@ -26,7 +26,7 @@ set cpoptions&vim                                                    " }}}1
 "                           '' if not available
 function! fontdetect#hasFontFamily(font_family) abort
     if !exists('s:fonts') | call s:GetFonts() | endif
-    return has_key(s:fonts, a:font_family)
+    return has_key(s:fonts, tolower(a:font_family))
 endfunction
 
 " fontdetect#firstFontFamily(font_families)                            {{{1
@@ -85,6 +85,7 @@ function! s:GetFonts() abort
     endif
 
     " build s:fonts                                                    {{{2
+    call map(l:families, 'tolower(v:var)')
     let s:fonts = {}
     for l:font_family in l:families
         let s:fonts[l:font_family] = 1
@@ -129,7 +130,7 @@ function! s:GetFontsUsingWindowsRegistry() abort
                 \ . ''' *\(.\{-}\)\ *\((\|\d\+,\|REG_SZ\).\{-}$'', '
                 \ . '''\1'', ''g'')')
 
-   " return result                                                    {{{2
+   " return result                                                     {{{2
     return l:output                                                  " }}}2
 
 endfunction
