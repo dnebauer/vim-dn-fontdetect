@@ -71,8 +71,12 @@ Note that font detection is case-insensitive.
 If using X11 fonts, e.g., console vim, use only the font family. Do not use
 an X logical font description (XLFD).
 
+The additional function |fontdetect#reset| causes rescanning of font families.
+It is useful if a font has been added to the system during an editing
+session.
+
                                                      *fontdetect#hasFontFamily*
-fontdetect#hasFontFamily(fontFamily)~
+fontdetect#hasFontFamily(fontFamily) ~
 
 Determines if the font family given by the string {fontFamily} exists.
 
@@ -82,7 +86,7 @@ For example (using GTK+ 2 GUI): >
     endif
 <
                                                    *fontdetect#firstFontFamily*
-fontdetect#firstFontFamily([{fontFamilies}])~
+fontdetect#firstFontFamily([{fontFamilies}]) ~
 
 Returns the first installed font family from the list {fontFamilies}.
 Returns the empty string if none of these font families are installed.
@@ -92,6 +96,14 @@ For example (using Windows GUI): >
         \ "DejaVu Sans Mono",
         \ "Consolas",
         \ ]) . ":h14"
+<
+                                                             *fontdetect#reset*
+fontdetect#reset() ~
+
+Resets the plugin so fonts are rescanned.
+
+For example: >
+    call fontdetect#reset()
 <
 ==============================================================================
 4. References                                           *fontdetect-references*

@@ -42,6 +42,14 @@ function! fontdetect#firstFontFamily(font_families) abort
         endif
     endfor
     return ''
+endfunction
+
+" fontdetect#reset()                                                   {{{1
+"  intent: erase any previously generated font list
+"  params: nil
+"  return: n/a
+function! fontdetect#reset() abort
+    let s:fonts = {}
 endfunction                                                          " }}}1
 
 " PRIVATE FUNCTIONS:
@@ -182,14 +190,6 @@ function! s:GetFontsUsingXlsfonts() abort
     call filter(l:output, 'len(split(v:val, ''-'', 1)) == 15')
     call map(l:output, '(split(v:val, ''-''))[1]')
     return uniq(sort(l:output))
-endfunction
-
-" s:Reset()                                                            {{{1
-"  intent: erase any previously generated font list
-"  params: nil
-"  return: n/a
-function! s:Reset() abort
-    let s:fonts = {}
 endfunction                                                          " }}}1
 
 " SETTINGS:
