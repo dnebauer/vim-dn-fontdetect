@@ -7,7 +7,6 @@ Plugin to detect installed fonts                        *fontdetect*
 3. Usage               |fontdetect-usage|
 4. References          |fontdetect-references|
 5. Credits             |fontdetect-credits|
-6. License             |fontdetect-license|
 
 ==============================================================================
 1. Introduction                                         *fontdetect-intro*
@@ -116,10 +115,5 @@ http://stackoverflow.com/questions/1113040/list-of-installed-fonts-os-x-c
 
 Based on the vim-fontdetect plugin developed by Michael Henry, located at
 https://github.com/drmikehenry/vim-fontdetect
-
-===============================================================================
-6. License                                              *fontdetect-license*
-
-Distributed under the same |license| as Vim.
 
  vim:tw=78:ts=8:ft=help:norl:

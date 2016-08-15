@@ -3,8 +3,6 @@
 " Maintainer:  David Nebauer <david@nebauer.org>
 " Credits:     Fork of Michael Henry's vim-fontdetect plugin at
 "              https://github.com/drmikehenry/vim-fontdetect
-" License:     Distributed under the same conditions as vim
-"              See |license| in any vim installation
 
 " SETTINGS:
 
@@ -138,7 +136,7 @@ function! s:GetFontsUsingWindowsRegistry() abort
                 \ . ''' *\(.\{-}\)\ *\((\|\d\+,\|REG_SZ\).\{-}$'', '
                 \ . '''\1'', ''g'')')
 
-   " return result                                                     {{{2
+    " return result                                                    {{{2
     return l:output                                                  " }}}2
 
 endfunction
