@@ -1,0 +1,92 @@
+*dn-fontdetect.txt*	Detecting system fonts
+David Nebauer                                                  *dn-fontdetect*
+
+==============================================================================
+CONTENTS                                              *dn-fontdetect-contents*
+  1. Introduction........................................|dn-fontdetect-intro|
+  2. Functions.......................................|dn-fontdetect-functions|
+  3. Usage...............................................|dn-fontdetect-usage|
+  4. Credits...........................................|dn-fontdetect-credits|
+
+==============================================================================
+INTRODUCTION                                             *dn-fontdetect-intro*
+
+There are some rough edges in Vim related to the detection of fonts. Vim
+supplies the |getfontname()| function that seems ideal for detecting whether a
+font is available, but there are a couple of problems. First, |getfontname()|
+cannot be called until the GUI has started (i.e., until the |GUIEnter| event
+occurs), which means that it can't be used from .vimrc (or .gvimrc). This
+makes it hard to define other settings that depend on the font (e.g., the
+Powerline plugin's g:Powerline_symbols setting must be defined before
+|GUIEnter| occurs).
+
+In addition, the GTK+ 2 GUI seems unable to determine whether a given font is
+installed, so |getfontname()| always simply returns the input argument, and
+setting 'guifont' always succeeds even if the font is not present.
+
+dn-fontdetect works around these issues, providing methods for detecting which
+fonts are installed on the system.
+
+At present, the following platforms are supported:
+
+  * Linux (using fontdetect for GTK+ 2 GUI and xlsfonts for X11)
+  * Windows (by querying the registry)
+  * Mac OS X (by using python to query the system Cocoa API)
+
+==============================================================================
+FUNCTIONS                                            *dn-fontdetect-functions*
+
+dn#fontdetect#firstFontFamily({font_families})
+                                             *dn#fontdetect#firstFontFamily()*
+  Return the first installed font family |String| from the specified |List| of
+  {font_families}, or "" if none are installed. Any spaces in font family
+  names must be unescaped. For example (using Windows GUI): >    let &guifont
+  = dn#fontdetect#firstFontFamily([               \ 'DejaVu Sans Mono',
+  \ 'Consolas',               \ ]) . ':h14' <
+
+dn#fontdetect#hasFontFamily({font_family})     *dn#fontdetect#hasFontFamily()*
+  Determine whether a {font_family} is available. Do not escape spaces in the
+  {font_family} name. Returns a |String| font family name, or "" if it is not
+  available. For example (using GTK+ 2 GUI):
+>
+    if dn#fontdetect#hasFontFamily('DejaVu Sans Mono')
+        let &guifont = 'DejaVu Sans Mono 14'
+    endif
+<
+
+dn#fontdetect#reset()                                  *dn#fontdetect#reset()*
+  Erase any previously generated font list.
+
+==============================================================================
+USAGE                                                    *dn-fontdetect-usage*
+
+
+dn-fontdetect provides the two functions for detecting fonts.
+|dn#fontdetect#hasFontFamily()| checks whether a single font is available and
+|dn#fontdetect#firstFontFamily()| locates the first available font in a list
+of fonts.
+
+A font family should be specified as a string with unescaped spaces, e.g.,
+"DejaVu Sans Mono", "Consolas", etc. Do not replace spaces with underscores.
+
+Font detection is case-insensitive.
+
+If using X11 fonts, e.g., console vim, use only the font family. Do not use an
+X logical font description (XLFD).
+
+The additional function |dn#fontdetect#reset()| causes rescanning of font
+families. It is useful if a font has been added to the system during an
+editing session.
+
+==============================================================================
+CREDITS                                                *dn-fontdetect-credits*
+
+
+The method of listing installed fonts on OS X is taken from
+http://stackoverflow.com/questions/1113040/list-of-installed-fonts-os-x-c.
+
+dn-fontdetect is based on the vim-fontdetect plugin developed by Michael
+Henry, located at https://github.com/drmikehenry/vim-fontdetect.
+
+
+vim:tw=78:ts=8:ft=help:norl:
