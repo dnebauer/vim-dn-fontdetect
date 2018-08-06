@@ -5,8 +5,8 @@ This plugin helps vim detect which fonts are installed on the system.
 
 For example (using GTK+ 2 GUI):
 ```vim
-    if fontdetect#hasFontFamily("DejaVu Sans Mono")
-        let &guifont = "DejaVu Sans Mono 14"
+    if dn#fontdetect#hasFontFamily('DejaVu Sans Mono')
+        let &guifont = 'DejaVu Sans Mono 14'
     endif
 ```
 
